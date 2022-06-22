@@ -1,0 +1,10 @@
+Connect\DBUtils.class
+Servlet\DeleteStudentServlet.class
+Servlet\DisplayStudent.class
+Servlet\NewClassServlet.class
+Servlet\AddNewSevlet.class
+Servlet\DisplayClass.class
+Model\Class.class
+Model\Student.class
+Servlet\UpdateStudentServlet.class
+DAO\Dao.class
