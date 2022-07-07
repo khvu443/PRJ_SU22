@@ -1,0 +1,17 @@
+Model\Product.class
+Filter\AuthFilter.class
+Servlet\LogoutServlet.class
+Model\Account.class
+Servlet\AdminHomePage.class
+Servlet\DeleteServletAdmin.class
+DAO\ProductDAO.class
+connect\DBUtils.class
+Servlet\UpdateServletAdmin.class
+Servlet\AddNewProduct.class
+Servlet\LoginServlet.class
+Servlet\UpdateAcc.class
+Servlet\UserHomeServlet.class
+DAO\LoginDAO.class
+UpdateProduct.class
+Servlet\AddNewAccount.class
+Servlet\DeleteProductServlet.class
