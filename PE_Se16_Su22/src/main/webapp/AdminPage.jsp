@@ -21,9 +21,6 @@
                 <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
                     Product
                 </button>
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-bill" type="button" role="tab" aria-controls="nav-" aria-selected="false">
-                    Bill
-                </button>
             </div>
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
@@ -153,54 +150,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="tab-pane fade p-3" id="nav-bill" role="tabpanel" aria-labelledby="nav-bill-tab">
-
-            <div class="container-lg mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg">
-                        <div>
-                            <table class="table table-primary table-bordered border-light table-hover">
-                                <thead class="table-light">
-                                    <tr class="text-center">
-                                        <td>Product ID</td>
-                                        <td>Product Name</td>
-                                        <td>Quantity</td>
-                                        <td>Price</td>
-                                        <td>Image</td>
-                                        <td>UserCreate</td>
-                                        <td>DateCreate</td>
-                                        <td colspan="2">Action</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:set var="p" value="${PRODUCT}" scope="session"/>
-                                    <c:forEach items="${p}" var="product">
-                                        <tr>
-                                            <td class="text-center">${product.PID}</td>
-                                            <td class="text-center">${product.pName}</td>
-                                            <td class="text-center"> ${product.quantity}</td>
-                                            <td class="text-center">${product.price}</td>
-                                            <td class="text-center"><img src="${product.image}" alt="image${product.pName}" style="width: 170px"/></td>
-                                            <td class="text-center">${product.user}</td>
-                                            <td class="text-center">${product.dateCreate}</td>
-
-                                            <td class="text-center">
-                                                <a class="btn btn-outline-primary" href="AdminUpdateProduct?PID=${product.PID}">Update</a>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <a class="btn btn-outline-danger" href="AdminDeleteProductServlet?PID=${product.PID}">Delete</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>                
-                </div>
-            </div>
         </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
