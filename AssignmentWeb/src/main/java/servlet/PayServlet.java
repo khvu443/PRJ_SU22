@@ -17,7 +17,8 @@ public class PayServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-
+        
+        // Luu hoa don mua vao database
         System.out.println("\nPAY ORDER");
 
         OrderDAO dao = new OrderDAO();
@@ -33,21 +34,21 @@ public class PayServlet extends HttpServlet {
 
         String url = "";
 
-        List<Product> saleList = d.getNewProduct();
-        List<Product> allP = d.getAllProduct();
-
         List<BillOrder> bol = dao.getAllOrder();
         BillOrder saveL = null;
 
         if (((acc = (Account) session.getAttribute("NAME")) != null)) {
+            // kiem tra xem user dang nhap chua - neu chua thi se ve login page
             if (!pl.isEmpty()) {
                 total = (double) session.getAttribute("total");
+                
                 // save bill of order
                 saveL = new BillOrder(IDOrder(bol), acc.getAccID(), total, null);
                 dao.saveOrder(saveL.getOID(), saveL.getAccID(), saveL.getTotalBill());
 
                 // Order detail of bill
-                for (int j = 0; j < pl.size(); j++) {                   
+                for (int j = 0; j < pl.size(); j++) {
+                    // 
                     if (ol.isEmpty()) {
                         System.out.println(IDetailDOrder1(ordertList) + " - " + pl.get(j).getNameP() + " - " + pl.get(j).getPrice());
                         ordertList.add(new Order(IDetailDOrder1(ordertList), pl.get(j).getPID(), pl.get(j).getPrice()));
@@ -58,6 +59,7 @@ public class PayServlet extends HttpServlet {
                 }
                 
                 for (Order o : ordertList) {
+                    // vong lap luu vao sql
                     dao.saveDetailOrder(o.getOID(), o.getPid(), o.getTotalMoney());
                 }
                 
@@ -69,7 +71,7 @@ public class PayServlet extends HttpServlet {
                 request.setAttribute("color", "#f44336");
                 request.setAttribute("message", "<div class=\"alert\">\n"
                         + "  <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> \n"
-                        + "  PLEASE ORDER SOME FOOD FIRST\n"
+                        + "  PLEASE ORDER SOME GAME FIRST\n"
                         + "</div>");
             }
         } else {
@@ -146,6 +148,7 @@ public class PayServlet extends HttpServlet {
         return id + no;
     }
 
+   
     String IDetailDOrder(List<Order> ol) {
         String id = "O";
         int no = 1;

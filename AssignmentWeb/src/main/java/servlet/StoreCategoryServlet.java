@@ -23,6 +23,7 @@ public class StoreCategoryServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        // gan giong nhu home store
         List<Product> list = null;
 
         String cid = request.getParameter("cid");
@@ -34,6 +35,8 @@ public class StoreCategoryServlet extends HttpServlet {
         GameDAO dao = new GameDAO();
         List<Product> allP = dao.getProductByCategory(cid);
 
+        // de check set size page - neu nhu sp co 6 thi khi chia 5 thi se ra 1 thi se thieu 1 sp
+        // nen can check de set size dung
         request.setAttribute("page", page);
         if (allP.size() < 10 && allP.size() > 5) {
             request.setAttribute("sizeProduct", 2);

@@ -200,7 +200,7 @@
                                 Hello ${NAME.username}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="AdminUpdateAccount?user=${NAME.accID}">Update Account</a></li>
+                                <li><a class="dropdown-item" href="AdminUpdateAcc?accID=${NAME.accID}">Update Account</a></li>
                                 <li>
                                     <a class="dropdown-item" href="HomeServlet">Home Page</a>
                                 </li>
@@ -218,7 +218,7 @@
 
             <div class="container-lg mt-5">
                 <div class="row justify-content-center">
-                    <div class="col-lg-10">
+                    <div class="col-lg-12">
                         <div>
                             <table class="table table-primary table-bordered border-light table-hover">
                                 <thead class="table-light">
@@ -230,7 +230,8 @@
                                         <td>Image</td>
                                         <td>DateCreate</td>
                                         <td>Rate</td>
-                                        <td>Action</td>
+                                        <td>Stock</td>
+                                        <td colspan="2">Action</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -251,8 +252,22 @@
                                             <td class="text-center">${product.dateCreate}</td>
                                             <td class="text-center">${product.rating}</td>
 
+                                            <c:choose>
+                                                <c:when test="${product.stock == true}">
+                                                    <td>In Stock</td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>Out of Stock</td>
+                                                </c:otherwise>
+                                            </c:choose>
+
+
                                             <td class="text-center">
-                                                <a class="btn btn-outline-primary" href="AdminUpdateProduct?PID=${product.PID}">Update</a>
+                                                <a class="btn btn-outline-primary" href="AdminUpdateProduct?PID=${product.PID}&page=${page}">Update</a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-outline-danger" href="AdminDeleteProduct?PID=${product.PID}&page=${page}">Delete</a>
+                                                <a class="btn btn-outline-success" href="AdminRecoverProduct?PID=${product.PID}&page=${page}">Recover</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -286,6 +301,14 @@
                         </div>
                     </div>                
                 </div>
+                <div class="possition-relative">
+                    <div class="position-absolute top-0 start-50 translate-middle-x">
+                        <div class="alert alert-info alert-dismissible fade ${show} text-center" role="alert" style="width:500px">
+                            ${MESSAGE}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div> 
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

@@ -21,19 +21,29 @@ public class HomeStoreServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         List<Product> listP = null;
-
+        // trang hien tai cua trang store
         int page = Integer.parseInt(request.getParameter("page"));
-
         System.out.println("page current: " + page);
+        
         GameDAO dao = new GameDAO();
         List<Product> allP = dao.getAllProduct();
-
         List<Product> newP = dao.getNewProduct();
 
+        // set attribute vao trang store.jsp
+        // - set Page de check 2 dau mui ten kieu neu page ma = 1 thi khi check lui trang no se luon de 1
+        // ko cho ve 0
         request.setAttribute("page", page);
+        // - set size list/5 - vi hien 5 sp trg 1 trang thi vd 10 sp thi se co 2 page
+        // - ngoai ra con check xem trang hien tai co = size page ko neu = la ko cho len nua ma
+        // van giu nguyen
         request.setAttribute("sizeProduct", (allP.size() / 5));
         request.setAttribute("newP", newP);
 
+        // vong lap de offset sp va fetch sp - co 10 sp id 1 -> 10 
+        // thi neu trang dau thi offset se la 0 -> lay i dang == voi trang hien tai * 5 (so luong sp hien)
+        // de tinh ra offset
+        // vd: trang 1 thi i se la 0 -> hien 5 sp co id tu 1 - 5 con sang trang 2 thi i la 1
+        // => offset se la bo 5 sp truoc di roi dung fetch de lay 5 sp moi co id tu 6-> 10
         for (int i = 0; i <= (allP.size() / 5); ++i) {
             if (((page - 1) == i)) {
                 listP = dao.getProductPage(i * 5);
@@ -43,7 +53,8 @@ public class HomeStoreServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("listP", listP);
         request.getRequestDispatcher("store.jsp").include(request, response);
-
+        
+        // chay sql de hieu - select * from product order by Product_id ASC OFFSET 5 rows FETCH NEXT 5 ROWS ONLY
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

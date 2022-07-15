@@ -35,7 +35,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -59,7 +60,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 );
             }
         } catch (Exception e) {
@@ -84,7 +86,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -110,13 +113,39 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
 
         }
         return pl;
+    }
+
+    public Product getProductByName(String name) {
+        String query = "select * from product where Name_product = ?";
+        try {
+            conn = new DBUtils().makeConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Product(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
+                );
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 
     public List<Product> PageProductByCategory(String id, int n) {
@@ -136,7 +165,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -162,7 +192,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -202,7 +233,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -227,7 +259,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -252,7 +285,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -278,7 +312,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -304,7 +339,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -329,7 +365,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -355,7 +392,8 @@ public class GameDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getString(6),
-                        rs.getFloat(7)
+                        rs.getFloat(7),
+                        rs.getBoolean(8)
                 ));
             }
         } catch (Exception e) {
@@ -364,8 +402,8 @@ public class GameDAO {
         return list;
     }
 
-    public void newProduct(String id, String image, String name, String cid, double price, float rate) {
-        String query = "insert into product values (?, ?,?,?,?, GETDATE(), ?)";
+    public void newProduct(String id, String image, String name, String cid, double price, float rate, boolean stock) {
+        String query = "insert into product values (?, ?,?,?,?, GETDATE(), ?, ?)";
         try {
             conn = new DBUtils().makeConnection();
             ps = conn.prepareStatement(query);
@@ -375,6 +413,7 @@ public class GameDAO {
             ps.setString(4, cid);
             ps.setDouble(5, price);
             ps.setFloat(6, rate);
+            ps.setBoolean(7, stock);
             ps.executeUpdate();
         } catch (Exception e) {
 
@@ -391,6 +430,20 @@ public class GameDAO {
             ps.setString(2, name);
             ps.setString(3, cid);
             ps.setDouble(4, price);
+            ps.executeUpdate();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void deleteAndRecover(String id, boolean stock) {
+        String query = "update product set Stock = ? where Product_id = ?";
+        try {
+            conn = new DBUtils().makeConnection();
+            ps = conn.prepareStatement(query);
+            ps.setBoolean(1, stock);
+            ps.setString(2, id);
+
             ps.executeUpdate();
         } catch (Exception e) {
 

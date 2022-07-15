@@ -14,14 +14,6 @@
     <body>
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="possition-relative">
-                    <div class="position-absolute top-0 start-50 translate-middle-x">
-                        <div class="alert alert-warning alert-dismissible fade ${show} text-center" role="alert" style="width:500px">
-                            ${MESSAGE}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-6 border border-primary border-3 rounded-3">
                     <div class="text-center">
                         <h2 class="text-primary">Add new product</h2>
@@ -63,7 +55,7 @@
 
                         <div class="text-center mb-3">
                             <button type="submit" class="btn btn-outline-primary" >Add New Product</button>
-                            <a class="btn btn-outline-secondary" name="submit" href="AdminHome">Cancel Add New</a>
+                            <a class="btn btn-outline-secondary" name="submit" href="AdminHomeServlet">Cancel Add New</a>
                         </div>
                     </form>
                 </div>

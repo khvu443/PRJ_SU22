@@ -18,6 +18,7 @@ public class ShowCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        // hien thong tin cac sp da dc add vao cart
         GameDAO dao = new GameDAO();
         List<category> listC = dao.getAllCategory();
 
@@ -29,7 +30,6 @@ public class ShowCart extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         List<Product> list = new ArrayList<>();
-        List<Product> saleList = dao.getNewProduct();
 
         if ((arr = request.getCookies()) != null) {
             for (Cookie o : arr) {

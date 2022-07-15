@@ -13,15 +13,16 @@ import jakarta.servlet.annotation.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-
 @MultipartConfig
 @WebServlet(name = "AdminUpdateProduct", urlPatterns = {"/AdminUpdateProduct"})
 public class AdminUpdateProduct extends HttpServlet {
 
+    int page = 0;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        page = Integer.parseInt(request.getParameter("page"));
         String PID = request.getParameter("PID");
         GameDAO dao = new GameDAO();
         Product b = dao.getProduct(PID);
@@ -59,7 +60,7 @@ public class AdminUpdateProduct extends HttpServlet {
         System.out.println("UPDATED");
 
         dao.updateProduct(id, "img/" + filename, pName, categoryID, price);
-        request.getRequestDispatcher("AdminHomeServlet").
+        request.getRequestDispatcher("AdminShowProduct?page=" + page).
                 forward(request, response);
     }
 

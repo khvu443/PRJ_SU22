@@ -36,15 +36,17 @@ public class AuthFilter implements Filter {
 
         HttpSession session = request.getSession();
         Account acc = null;
-        System.out.println("Acc in filter: " + acc);
 
+        // kiem url la bat dau co phai la 1 trang co Admin khong
         if (url.startsWith("/AssignmentWeb/Admin")) {
+            // Kiem tra account co la dang nhap khong neu ko thi cho ve login
             if ((acc =  (Account) session.getAttribute("NAME")) != null) {
+                // kiem tra role account
                 if (acc.getRoleID().equals("R01")) {
                     System.out.println("PERMISSION");
                     fc.doFilter(req, res);
+                    
                 } else if (acc.getRoleID().equals("R02")) {
-
                     request.setAttribute("color", "#f44336");
                     request.setAttribute("message", "<div class=\"alert\">\n"
                             + "  <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> \n"
@@ -62,6 +64,7 @@ public class AuthFilter implements Filter {
                 rd.forward(request, response);
             }
         } else {
+            // neu ko phai la trang admin thi se cho phep vao
             fc.doFilter(req, res);
         }
 

@@ -22,30 +22,12 @@ public class SearchProductServlet extends HttpServlet {
 
         String name = request.getParameter("search");
         System.out.println("name search: " + name);
+        
         HttpSession session = request.getSession();
         session.setAttribute("search", name);
         GameDAO dao = new GameDAO();
 
         List<Product> searchSize = dao.searchProductByName(name);
-        List<Product> newP = dao.getNewProduct();
-
-        List<Product> oldP = dao.getAllProduct();
-        List<String> arrP = new ArrayList<>();
-        for (int i = 0; i < oldP.size(); i++) {
-            for (int j = 0; j < newP.size(); j++) {
-                if (oldP.get(i).getPID().equals(newP.get(j).getPID())) {
-                    arrP.add(oldP.get(i).getPID());
-                }
-            }
-        }
-        // remove product sale, only not sale
-        for (int i = 0; i < oldP.size(); i++) {
-            for (int j = 0; j < arrP.size(); j++) {
-                if (oldP.get(i).getPID().equals(arrP.get(j))) {
-                    oldP.remove(i);
-                }
-            }
-        }
 
         // pagination
         int page = 1;
@@ -79,9 +61,6 @@ public class SearchProductServlet extends HttpServlet {
             request.setAttribute("pageSize", (searchSize.size() / 5));
             System.out.println("size Product: " + (searchSize.size() / 5));
         }
-        
-        request.setAttribute("oldP", oldP);
-        request.setAttribute("newP", newP);
         request.setAttribute("listP", searchP);
         request.getRequestDispatcher("searchResult.jsp").include(request, response);
     }

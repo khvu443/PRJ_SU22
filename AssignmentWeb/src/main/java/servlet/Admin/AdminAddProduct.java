@@ -46,16 +46,18 @@ public class AdminAddProduct extends HttpServlet {
 
         float rating = Float.parseFloat(request.getParameter("rating"));
 
-        System.out.println(autoIncreaseIDProduct(pl) + " - " + filename + " - " + nameP + " - " + price + " - " + categoryID + " - " + rating);
 
         //---------------------------------------------------------------------------------------
         if (duplicationName(nameP, pl)) {
-            request.setAttribute("show", "show");
-            request.setAttribute("MESSAGE", "Product " + nameP + " is exist");
-            url = "AdminAddNewProduct.jsp";
+            // neu co lap thi sp se dc khoi phuc lai neu da xoa
+            Product p = dao.getProductByName(nameP);
+            dao.deleteAndRecover(p.getPID(), true);
+            url = "AdminShowProduct?page=1";
         } else {
-            dao.newProduct(autoIncreaseIDProduct(pl), "img/" + filename, nameP, categoryID, price, rating);
-            url = "AdminHomeServlet";
+            // san pham moi stock luon true
+            // Khi add image cho sp moi phai co dem thu muc luu anh + file name
+            dao.newProduct(autoIncreaseIDProduct(pl), "img/" + filename, nameP, categoryID, price, rating, true);
+            url = "AdminShowProduct?page=1";
         }
         System.out.println("url: " + url);
         RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -102,6 +104,7 @@ public class AdminAddProduct extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    // check sp da ton tai hay chua
     boolean duplicationName(String name, List<Product> ls) {
         for (int i = 0; i < ls.size(); i++) {
             if (ls.get(i).getNameP().equalsIgnoreCase(name)) {
@@ -110,7 +113,8 @@ public class AdminAddProduct extends HttpServlet {
         }
         return false;
     }
-
+    
+    // Tu dong tang id cua sp moi
     String autoIncreaseIDProduct(List<Product> ls) {
         String id = "";
         int noId = 1;

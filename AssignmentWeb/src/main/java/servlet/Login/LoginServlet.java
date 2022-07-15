@@ -26,8 +26,8 @@ public class LoginServlet extends HttpServlet {
 
         String user = request.getParameter("username");
         String pass = request.getParameter("pass");
-        String remember = null;
-        System.out.println("remember: " + remember);
+        String remember = request.getParameter("check");
+        System.out.println(remember);
         LoginDAO dao = new LoginDAO();
 
         Account result = dao.checkLogin(user, pass);
@@ -39,12 +39,44 @@ public class LoginServlet extends HttpServlet {
 
                     HttpSession session = request.getSession();
                     session.setAttribute("NAME", result);
+                    if (remember != null) {
+                        {
+                            if (remember.equals("1")) {
+
+                                Cookie cookieName = new Cookie("cookieName", user);
+                                cookieName.setMaxAge(60 * 60);
+                                Cookie cookiePass = new Cookie("cookiePass", pass);
+                                cookieName.setMaxAge(60 * 60);
+                                Cookie cookieRemember = new Cookie("remember", remember);
+                                cookieName.setMaxAge(60 * 60);
+                                response.addCookie(cookieName);
+                                response.addCookie(cookiePass);
+                                response.addCookie(cookieRemember);
+                            }
+                        }
+                    }
                     url = "AdminHomeServlet";
 
                 } else {
                     url = "HomeServlet";
                     HttpSession session = request.getSession();
                     session.setAttribute("NAME", result);
+                    if (remember != null) {
+                        {
+                            if (remember.equals("1")) {
+
+                                Cookie cookieName = new Cookie("cookieName", user);
+                                cookieName.setMaxAge(60 * 60);
+                                Cookie cookiePass = new Cookie("cookiePass", pass);
+                                cookieName.setMaxAge(60 * 60);
+                                Cookie cookieRemember = new Cookie("remember", remember);
+                                cookieName.setMaxAge(60 * 60);
+                                response.addCookie(cookieName);
+                                response.addCookie(cookiePass);
+                                response.addCookie(cookieRemember);
+                            }
+                        }
+                    }
                 }
             } else {
                 url = "login.jsp";

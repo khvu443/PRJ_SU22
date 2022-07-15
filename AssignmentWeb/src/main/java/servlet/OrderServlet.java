@@ -22,12 +22,14 @@ public class OrderServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
 
+            // khi bam place order thi tat ca cac sp co id dc luu trg cookie se bi xoa
             Cookie arr[] = request.getCookies();
             List<Product> list = new ArrayList<>();
             GameDAO dao = new GameDAO();
+            
             for (Cookie o : arr) {
                 if (o.getName().equals("id")) {
-                    String txt[] = o.getValue().split(",");
+                    String txt[] = o.getValue().split("/");
                     for (String s : txt) {
                         list.add(dao.getProduct(s));
                     }
@@ -38,6 +40,7 @@ public class OrderServlet extends HttpServlet {
                 if (o.getName().equals("id")) {
                     o.setMaxAge(0);
                     response.addCookie(o);
+                    System.out.println("remove");
                 }
 
             }

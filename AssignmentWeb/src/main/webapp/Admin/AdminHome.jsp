@@ -264,7 +264,6 @@
                                                             <c:when test="${ul.roleID == 'R01'}">
                                                                 <td class="text-center">
                                                                     <a class="btn btn-outline-primary" href="AdminUpdateAcc?accID=${ul.accID}">Update</a>
-                                                                    <a class="btn btn-outline-danger" href="AdminDeleteAccount?accID=${ul.accID}">Delete</a>
                                                                 </td>
                                                             </c:when>
                                                             <c:otherwise>                                                    
@@ -275,6 +274,7 @@
                                                         </c:choose>
 
                                                         <td class="text-center">
+                                                            <a class="btn btn-outline-danger" href="AdminDeleteAccount?accID=${ul.accID}">Delete</a>
                                                             <a class="btn btn-outline-success" href="AdminRecoverAccount?accID=${ul.accID}">Recover</a>
                                                         </td>
 

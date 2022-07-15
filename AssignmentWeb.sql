@@ -12,7 +12,8 @@ create table product
 	Category_id nvarchar(50) foreign key references category(Category_id),
 	price int,
 	DateCreate datetime,
-	rating float
+	rating float,
+	Stock bit
 );
 
 create table roleDetail
@@ -57,14 +58,14 @@ insert into category values('C3', 'Hack & Slack')
 
 
 -- insert product
-insert into product values ('P0001', 'img/stardew_valley.png','Stardew Vally','C1',150000, GETDATE(), 5)
-insert into product values ('P0002', 'img/Minecraft.jpg','Minecraft','C2',18500, GETDATE(), 4.3)
-insert into product values ('P0003', 'img/Assassin_Creed_Odyssey.png','Assassin Creed Odyssey','C1',430000, GETDATE(), 4.6)
-insert into product values ('P0004', 'img/sim4.jpg','The sim4','C2',5000000, GETDATE(), 4)
-insert into product values ('P0005', 'img/Dead_cells.png','Dead cells','C3',500000, GETDATE(), 3.7)
+insert into product values ('P0001', 'img/stardew_valley.png','Stardew Vally','C1',150000, GETDATE(), 5, 1)
+insert into product values ('P0002', 'img/Minecraft.jpg','Minecraft','C2',18500, GETDATE(), 4.3, 1)
+insert into product values ('P0003', 'img/Assassin_Creed_Odyssey.png','Assassin Creed Odyssey','C1',430000, GETDATE(), 4.6, 1)
+insert into product values ('P0004', 'img/sim4.jpg','The sim4','C2',5000000, GETDATE(), 4, 1)
+insert into product values ('P0005', 'img/Dead_cells.png','Dead cells','C3',500000, GETDATE(), 3.7, 1)
 insert into product values ('P0006', 'img/Hades.jpg','Hades','C3',450000, GETDATE(), 3.5)
-insert into product values ('P0007', 'img/The_Witcher.png','The Witcher 3: Wild Hunt','C1',455000, GETDATE(), 4.9)
-insert into product values ('P0008', 'img/Katana_Zero.png','Katana ZERO','C3',540000, GETDATE(), 3)
+insert into product values ('P0007', 'img/The_Witcher.png','The Witcher 3: Wild Hunt','C1',455000, GETDATE(), 4.9, 1)
+insert into product values ('P0008', 'img/Katana_Zero.png','Katana ZERO','C3',540000, GETDATE(), 3, 1)
 
 
 --insert Role
@@ -76,12 +77,8 @@ insert into account values ('A02','TTB', '12345', 'Tran Thi B','R02', 'true')
 insert into account values ('A03','NVA', '12345', 'Nguyen Van A','R02', 'true')
 insert into account values ('A04','NVB', '12345', 'Nguyen Van B','R02', 'false')
 
-select * from account
+select * from [dbo].[Order]
 
-select top 5 * from product order by DateCreate DESC
-
-select * from account
-select * from product
 
 
 

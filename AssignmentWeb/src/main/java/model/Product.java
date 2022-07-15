@@ -12,11 +12,12 @@ public class Product {
     private int price;
     private String dateCreate;
     private float rating;
+    private boolean stock;
 
     public Product() {
     }
 
-    public Product(String PID, String image, String nameP, String categoryID, int price, String date, float rate) {
+    public Product(String PID, String image, String nameP, String categoryID, int price, String date, float rate, boolean stock) {
         this.PID = PID;
         this.image = image;
         this.nameP = nameP;
@@ -24,6 +25,7 @@ public class Product {
         this.price = price;
         this.dateCreate = date;
         this.rating = rate;
+        this.stock = stock;
     }
 
     public String getDateCreate() {
@@ -85,7 +87,16 @@ public class Product {
         this.price = price;
     }
 
+    public boolean isStock() {
+        return stock;
+    }
 
+    public void setStock(boolean stock) {
+        this.stock = stock;
+    }
+
+
+    
 
     @Override
     public String toString() {

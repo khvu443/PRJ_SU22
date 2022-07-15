@@ -2,65 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet;
+package servlet.Admin;
 
+import DAO.GameDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 
-/**
- *
- * @author lenovo
- */
-@WebServlet(name = "RemoveProduct", urlPatterns = {"/RemoveProduct"})
-public class RemoveProduct extends HttpServlet {
+@WebServlet(name = "AdminRecoverProduct", urlPatterns = {"/AdminRecoverProduct"})
+public class AdminRecoverProduct extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        try ( PrintWriter out = response.getWriter()) 
-        {
-            // xoa sp khoi cart
-            // lay id sp muon xoa
-            String id = request.getParameter("id");
-            Cookie arr[] = request.getCookies();
-            String txt = "";
-            
-            for (Cookie o : arr) {
-                // kt va luu cac sp vao txt
-                if (o.getName().equals("id")) {
-                    txt = txt + o.getValue();
-                    o.setMaxAge(0);
-                    response.addCookie(o);
-                }
-            }
-            
-            // tach cac sp ra 
-            String ids[] = txt.split("/");
-            String txtOutPut = "";
-            // check xem cac sp nao ko cung id sp muon xoa khoi cart roi luu vao txtOutPut
-            for (String id1 : ids) {
-                if (!id1.equals(id)) {
-                    if (txtOutPut.isEmpty()) {
-                        txtOutPut = id1;
-                    } else {
-                        txtOutPut = txtOutPut + "/" + id1;
-                    }
-                }
-            }
-            
-            // khi kt cac sp ko co cung id sp muon xoa se tao ra 1 danh sach sp moi
-            // va tao 1 cookie de luu lai cac sp do
-            if (!txtOutPut.isEmpty()) {
-                Cookie c = new Cookie("id", txtOutPut);
-                c.setMaxAge(60);
-                response.addCookie(c);
-            }
-            response.sendRedirect("ShowCart");
-        }
+        // tuong tu delete nhung ma nguoc lai la cho true stock
+        String page = request.getParameter("page");
+        String id = request.getParameter("PID");
+        GameDAO dao = new GameDAO();
+        dao.deleteAndRecover(id, true);
+        request.getRequestDispatcher("AdminShowProduct?page=" + page).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

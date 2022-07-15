@@ -16,10 +16,16 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        // lay id sp muon add vao 
         String id = request.getParameter("id");
+        
+        
+        // tao 1 mang cookie de check
         Cookie arr[] = request.getCookies();
         String txt = "";
 
+        // chay vong lap de kt xem trg cookie co chua neu co thi se cho txt = gia tri cua cookie co ten
+        // trung voi Id va xoa cookie do (O day set Max Age la cho cookie do het han
         for (Cookie o : arr) {
             if (o.getName().equals("id")) {
                 txt = txt + o.getValue();
@@ -27,13 +33,16 @@ public class CartServlet extends HttpServlet {
                 response.addCookie(o);
             }
         }
+        // neu ma vong lap tren ko co trung thi cho txt do = id sp
         if (txt.isEmpty()) {
             txt = id;
         } else {
+            // ko thi cho them / vao de ngan cach 2 id
             txt = txt + "/" + id;
         }
         System.out.println("cookie: " + txt);
         
+        // khoi tao 1 cookie moi voi id la sp va txt
         Cookie c = new Cookie("id", txt);
         c.setMaxAge(60);
 
